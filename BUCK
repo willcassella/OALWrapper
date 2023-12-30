@@ -32,19 +32,28 @@ cxx_library(
     exported_deps = [
         "//OALWrapper/include:headers",
     ],
-    compiler_flags = global_compiler_flags + [
-        "-isystem",
-        "/opt/homebrew/include",
-        "-isystem",
-        "/opt/homebrew/include/SDL",
-    ],
-    exported_linker_flags = [
-        "-L/opt/homebrew/opt/openal-soft/lib",
-        "-lopenal",
-        "-L/opt/homebrew/lib",
-        "-lSDL",
-        "-lvorbisfile",
-    ],
+    compiler_flags = select({
+        "config//os:linux": global_compiler_flags + [
+            "-I/usr/include/SDL",
+        ],
+        "config//os:macos": global_compiler_flags + [
+            "-isystem",
+            "/opt/homebrew/include",
+            "-isystem",
+            "/opt/homebrew/include/SDL",
+        ],
+    }),
+    exported_linker_flags = select({
+        "config//os:linux":  [
+        ],
+        "config//os:macos": [
+            "-L/opt/homebrew/opt/openal-soft/lib",
+            "-lopenal",
+            "-L/opt/homebrew/lib",
+            "-lSDL",
+            "-lvorbisfile",
+        ]
+    }),
     linker_flags = global_linker_flags,
     link_style = "static",
 )
