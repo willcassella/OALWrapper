@@ -1,5 +1,6 @@
 cxx_library(
     name = "OALWrapper",
+    visibility = ["PUBLIC"],
     srcs = [
         "sources/OAL_AudioData.cpp",
         "sources/OAL_Buffer.cpp",
@@ -34,12 +35,12 @@ cxx_library(
         "-isystem",
         "/opt/homebrew/include/SDL",
     ],
-    linker_flags = [
+    exported_linker_flags = [
         "-L/opt/homebrew/opt/openal-soft/lib",
         "-lopenal",
         "-L/opt/homebrew/lib",
         "-lSDL",
         "-lvorbisfile",
     ],
-    visibility = ["PUBLIC"],
+    link_style = "static",
 )

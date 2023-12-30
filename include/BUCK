@@ -1,5 +1,6 @@
 cxx_library(
     name = "headers",
+    visibility = ["PUBLIC"],
     header_namespace = "",
     exported_headers = [
         "AL/al.h",
@@ -32,5 +33,5 @@ cxx_library(
         "OALWrapper/OAL_Types.h",
         "OALWrapper/OAL_WAVSample.h",
     ],
-    visibility = ["PUBLIC"],
+    link_style = "static",
 )
