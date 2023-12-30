@@ -1,3 +1,6 @@
+load("//defs.bzl", "global_compiler_flags")
+load("//defs.bzl", "global_linker_flags")
+
 cxx_library(
     name = "OALWrapper",
     visibility = ["PUBLIC"],
@@ -29,7 +32,7 @@ cxx_library(
     exported_deps = [
         "//OALWrapper/include:headers",
     ],
-    compiler_flags = [
+    compiler_flags = global_compiler_flags + [
         "-isystem",
         "/opt/homebrew/include",
         "-isystem",
@@ -42,5 +45,6 @@ cxx_library(
         "-lSDL",
         "-lvorbisfile",
     ],
+    linker_flags = global_linker_flags,
     link_style = "static",
 )
